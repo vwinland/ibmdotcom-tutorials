@@ -8,8 +8,9 @@ Thank you for your interest in contributing to the IBM Tutorials repository! Thi
 2. [Development Setup](#development-setup)
 3. [Development Workflow](#development-workflow)
 4. [Code Quality Standards](#code-quality-standards)
-5. [Submitting Changes](#submitting-changes)
-6. [Additional Resources](#additional-resources)
+5. [Security Guidelines](#security-guidelines)
+6. [Submitting Changes](#submitting-changes)
+7. [Additional Resources](#additional-resources)
 
 ---
 
@@ -299,6 +300,188 @@ x = "What is machine learning?"
 y = generate_response(x)
 
 # No comments for complex code
+---
+
+## Security Guidelines
+
+### Dependency Management
+
+This repository uses Dependabot for automated dependency updates and security monitoring. When contributing tutorials or updating dependencies, follow these guidelines:
+
+#### Adding Dependencies
+
+When adding new dependencies to tutorials:
+
+1. **Use Version Ranges** (unless exact version required)
+   ```
+   # Good - allows minor and patch updates
+   package>=1.0.0,<2.0.0
+
+   # Avoid - locks to exact version
+   package==1.0.0
+   ```
+
+2. **Document Version Requirements**
+   - If exact versions are needed, explain why in comments or README
+   - Example: ChatDev tutorial requires specific versions for compatibility
+
+3. **Test with Multiple Python Versions**
+   - Test with Python 3.10, 3.11, 3.12, 3.13
+   - Use `requires-python` in pyproject.toml to specify supported versions
+
+4. **Security Considerations**
+   - Run `pip-audit` before committing new dependencies
+   - Check for known vulnerabilities
+   - Update dependencies regularly
+
+#### Checking for Vulnerabilities
+
+Before adding or updating dependencies:
+
+```bash
+# Python - Check for vulnerabilities
+pip install pip-audit
+pip-audit -r requirements.txt
+
+# Python - Alternative security checker
+pip install safety
+safety check -r requirements.txt
+
+# Node.js - Check for vulnerabilities
+npm audit
+
+# Node.js - Fix vulnerabilities automatically
+npm audit fix
+```
+
+#### Reviewing Dependabot PRs
+
+When Dependabot creates a pull request:
+
+1. **Review the changelog** for breaking changes
+2. **Test the tutorial** with updated dependencies
+3. **Check for compatibility** with tutorial code
+4. **Merge promptly** if tests pass (especially security updates)
+5. **Document issues** if updates break functionality
+
+#### Dependency Update Schedule
+
+- **Security updates:** Immediate review and merge (critical/high severity)
+- **Version updates:** Weekly review on Mondays
+- **Major version updates:** Careful review and testing required
+
+### Security Best Practices
+
+#### Protecting Credentials
+
+**Never commit sensitive information:**
+
+```python
+# ❌ BAD - Hardcoded credentials
+api_key = "sk-1234567890abcdef" # pragma: allowlist secret
+password = "mypassword123" # pragma: allowlist secret
+
+# ✅ GOOD - Use environment variables
+import os
+api_key = os.getenv("WATSONX_API_KEY")
+password = os.getenv("DB_PASSWORD")
+
+# ✅ GOOD - For tutorial examples only
+api_key = "your_api_key_here"  # pragma: allowlist secret
+```
+
+**Use .env files (already in .gitignore):**
+
+```bash
+# Create .env file (never commit this)
+echo "WATSONX_API_KEY=your_key_here" > .env
+
+# Create .env.example (commit this)
+echo "WATSONX_API_KEY=your_watsonx_api_key" > .env.example # pragma: allowlist secret
+```
+
+#### Input Validation
+
+Always validate user input in tutorials:
+
+```python
+# ✅ GOOD - Validate input
+from pydantic import BaseModel, validator
+
+class UserQuery(BaseModel):
+    query: str
+
+    @validator('query')
+    def validate_query(cls, v):
+        if len(v) > 1000:
+            raise ValueError('Query too long')
+        if not v.strip():
+            raise ValueError('Query cannot be empty')
+        return v.strip()
+
+# Use the validated input
+user_input = UserQuery(query=raw_input)
+```
+
+#### Error Handling
+
+Don't expose sensitive information in error messages:
+
+```python
+# ❌ BAD - Exposes internal details
+try:
+    result = api_call(api_key, data)
+except Exception as e:
+    print(f"Error: {e}")  # May expose API keys or internal paths
+
+# ✅ GOOD - Generic error message
+try:
+    result = api_call(api_key, data)
+except Exception as e:
+    logger.error(f"API call failed: {e}")  # Log for debugging
+    print("An error occurred. Please try again.")  # User-friendly message
+```
+
+#### Secure File Operations
+
+```python
+# ✅ GOOD - Safe file operations
+from pathlib import Path
+
+def read_safe_file(filename):
+    # Validate filename
+    safe_path = Path("data") / filename
+    if not safe_path.resolve().is_relative_to(Path("data").resolve()):
+        raise ValueError("Invalid file path")
+
+    return safe_path.read_text()
+```
+
+### Security Checklist for Contributors
+
+Before submitting a pull request, verify:
+
+- [ ] No hardcoded credentials or API keys
+- [ ] Dependencies use version ranges (not exact pins unless necessary)
+- [ ] `.env.example` provided for required environment variables
+- [ ] Input validation implemented where applicable
+- [ ] Error handling doesn't expose sensitive information
+- [ ] Dependencies scanned for vulnerabilities (`pip-audit` or `npm audit`)
+- [ ] README includes security considerations
+- [ ] Code follows secure coding practices
+- [ ] No secrets detected by pre-commit hooks
+
+### Reporting Security Issues
+
+If you discover a security vulnerability:
+
+1. **Do NOT open a public issue**
+2. Review our [Security Policy](SECURITY.md)
+3. Report privately via GitHub's security advisory feature
+4. Include detailed information about the vulnerability
+
+See [SECURITY.md](SECURITY.md) for complete reporting guidelines.
+
 c = retrieve_relevant_docs(x)
 ```
 
