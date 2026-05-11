@@ -306,6 +306,21 @@ y = generate_response(x)
 
 ### Dependency Management
 
+#### Dependabot Review Process
+
+This repository uses an automated review workflow for Dependabot PRs. See [DEPENDABOT_REVIEW_PROCESS.md](DEPENDABOT_REVIEW_PROCESS.md) for complete details.
+
+**Quick Summary:**
+- **Patch updates** (1.2.3 → 1.2.4): Auto-approved, 1 review total
+- **Minor updates** (1.2.0 → 1.3.0): Auto-approved, 1 review total  
+- **Major updates** (1.0.0 → 2.0.0): Requires 2 manual reviews
+
+**For Reviewers:**
+- Patch/minor updates are auto-approved by workflow
+- Review changelog and test results before merging
+- Major updates need thorough review and testing
+- Use weekly batch review sessions for efficiency
+
 This repository uses Dependabot for automated dependency updates and security monitoring. When contributing tutorials or updating dependencies, follow these guidelines:
 
 #### Adding Dependencies
