@@ -7,6 +7,7 @@ on:
     branches: [ main ]
   schedule:
     - cron: '0 0 * * 1'  # Weekly on Monday at midnight UTC
+  workflow_dispatch:  # Allows manual triggering from Actions tab
 
 permissions:
   actions: read
