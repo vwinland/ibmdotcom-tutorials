@@ -15,6 +15,7 @@ langchain-ibm = "^0.3.3"
 python-dotenv = "^1.0.1"
 ibm-watsonx-ai = { version = ">=1.1.22", python = ">=3.11,<3.13" }
 langgraph = "^1.0"
+langchain-core = ">=0.3.87"  # Pin to safe version to avoid CVE in 0.3.86
 statsmodels = "^0.14.4"
 numpy = "<2"
 pytest = "^8.3.3"
