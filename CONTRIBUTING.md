@@ -65,7 +65,7 @@ tutorials/01-rag-and-retrieval/my-rag-tutorial/
 
 ### Step 3: Configure Dependabot (If You Have Dependencies)
 
-**⚠️ If your tutorial has `requirements.txt`, `pyproject.toml`, or `package.json`, you MUST do this step!**
+**⚠️ If your tutorial has `requirements.txt`, `pyproject.toml`, or `package.json`, do this step!**
 
 Edit `.github/dependabot.yml` and add your tutorial:
 

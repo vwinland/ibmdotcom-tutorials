@@ -4,6 +4,7 @@ image
 langchain
 botocore
 langchain-ibm
+langchain-core>=0.3.87  # Pin to safe version to avoid CVE in 0.3.86
 ibm-watsonx-ai
 python-dotenv
 torch
