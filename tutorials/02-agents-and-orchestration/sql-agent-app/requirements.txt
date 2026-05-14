@@ -3,7 +3,7 @@ ibm-watsonx-ai
 langchain-ibm
 mistralai
 langchain-mistralai
-langgraph
+langgraph>=1.0.10  # Pin to safe version to avoid CVE in <=1.0.9
 langchain-core>=0.3.87  # Pin to safe version to avoid CVE in 0.3.86
 langchain_experimental
 tavily-python
