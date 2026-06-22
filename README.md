@@ -19,6 +19,7 @@ This repository contains **60+ tutorials** organized by learning intent, coverin
 - **Text Processing & NLP** - Classic and modern NLP techniques
 - **Full-Stack AI Applications** - Complete end-to-end AI projects
 - **Observability & Monitoring** - Track and optimize AI system performance
+- **Data Streaming & Event Processing** - Build real-time data pipelines with Kafka and Confluent
 - **IBM Bob** - Master the AI-powered coding assistant for documentation and automation
 
 ## 🚀 Quick Start
@@ -146,6 +147,12 @@ Master IBM Bob, the AI-powered coding assistant for documentation, development, 
 - [AI Documentation with IBM Bob](tutorials/16-ibm-bob/ai-docs-ibm-bob/) - Automatically generate and maintain project documentation
 - [MCP Server Integration](tutorials/16-ibm-bob/mcp-server-integration-ibm-bob/) - Build and integrate Model Context Protocol servers
 
+### [17 - Data Streaming](tutorials/17-data-streaming/)
+Build real-time event streaming platforms and data pipelines using Apache Kafka and Confluent Cloud.
+
+**Featured Tutorials:**
+- [Confluent Modernization](tutorials/17-data-streaming/confluent-modernization/) - Migrate from on-premises Kafka to Confluent Cloud with real-time fraud detection
+
 ## 🎓 Learning Paths
 
 ### Beginner Path: Getting Started with AI
@@ -243,6 +250,7 @@ ibmdotcom-tutorials/
 │   ├── 14-lora-and-fine-tuning/
 │   ├── 15-docling/
 │   ├── 16-ibm-bob/
+│   ├── 17-data-streaming/
 │   └── shared-assets/      # Shared data, images, and resources
 ├── .github/                # GitHub workflows and assets
 └── README.md              # This file
